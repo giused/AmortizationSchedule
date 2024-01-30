@@ -1,9 +1,12 @@
-﻿using System.Reflection.Metadata;
-
-namespace Amortization.Services
+﻿namespace Amortization.Services
 {
     public class AmortizationCalculator
     {
+        /// <summary>
+        /// Calculates monthly loan payment based on parameters provided
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns>Monthly mortgage payment</returns>
         public double CalculateLoanPayment(AmortizationParameters parameters)
         {
             double monthlyInterest = parameters.AnnualInterestRate / 12;
