@@ -14,10 +14,18 @@
         /// Gets or sets the annual interest rate
         /// </summary>
         public double AnnualInterestRate { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the number of payments in terms of months
         /// </summary>
         public int NumberOfPayments { get; set; }
+
+        public double MonthlyInterestRate
+        {
+            get
+            {
+                return AnnualInterestRate / 12;
+            }
+        }
     }
 }

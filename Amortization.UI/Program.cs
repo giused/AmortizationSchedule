@@ -1,3 +1,5 @@
+using Amortization.Services;
+using Amortization.Services.Client;
 using RestSharp;
 
 namespace Amortization.UI
@@ -15,6 +17,8 @@ namespace Amortization.UI
 
 
             builder.Services.AddSingleton(new RestClient(apiUrl));
+            builder.Services.AddScoped<IAmortizationService, AmortizationService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

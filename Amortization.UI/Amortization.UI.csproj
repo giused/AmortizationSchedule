@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Amortization.Services\Amortization.Services.csproj" />
+    <ProjectReference Include="..\Amortization.Models\Amortization.Models.csproj" />
+    <ProjectReference Include="..\Amortization.Services.Client\Amortization.Services.Client.csproj" />
+    <ProjectReference Include="..\Amortization.Services.Interfaces\Amortization.Services.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

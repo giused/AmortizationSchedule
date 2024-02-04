@@ -11,12 +11,9 @@ namespace Amortization.Services.Client
     {
         private RestClient _client;
 
-        public BaseService() 
+        public BaseService(RestClient client) 
         {
-            var options = new RestClientOptions("");
-            _client = new RestClient(options);        
-        }
-
-     
+            _client = client;
+        }     
     }
 }
