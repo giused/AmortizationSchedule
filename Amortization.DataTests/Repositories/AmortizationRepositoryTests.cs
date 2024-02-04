@@ -16,7 +16,6 @@ namespace Amortization.Data.Repositories.Tests
         protected ApplicationDbContext? DataContext { get; set; }
         protected AmortizationRepository AmortizationRepository { get; set; }
 
-
         [TestInitialize]
         public void TestInitialize()
         {
@@ -29,9 +28,16 @@ namespace Amortization.Data.Repositories.Tests
         public async Task SaveUserTest()
         {
             User user = new User();
-            user.UserName = "Test"; 
+            user.UserName = "Test";
             await AmortizationRepository.SaveUser(user);
             Assert.IsTrue(user.UserId > 0);
+        }
+
+        [TestMethod()]
+        public async Task GetUserTest()
+        {
+            var user = await AmortizationRepository.GetUser("test");
+            Assert.IsNotNull(user);
         }
     }
 }

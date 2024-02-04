@@ -1,0 +1,6 @@
+@Amortization.API_HostAddress = http://localhost:5284
+
+GET {{Amortization.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

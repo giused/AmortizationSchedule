@@ -1,7 +1,21 @@
-﻿namespace Amortization.Services
+﻿using Amortization.Data.Repositories;
+using Amortization.Identity;
+using Amortization.Models;
+
+namespace Amortization.Services
 {
-    public class AmortizationCalculator
+    public class AmortizationService : IAmortizationService
     {
+        public IIdentityService IdentityService { get; set; }
+
+        public IAmortizationRepository AmortizationRepository { get; set; }
+
+        public AmortizationService(IIdentityService identityService, IAmortizationRepository amortizationRepository)
+        {
+            IdentityService = identityService;
+            AmortizationRepository = amortizationRepository;
+        }
+
         /// <summary>
         /// Calculates monthly loan payment based on parameters provided
         /// </summary>

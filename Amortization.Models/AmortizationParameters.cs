@@ -1,4 +1,4 @@
-﻿namespace Amortization.Services
+﻿namespace Amortization.Models
 {
     /// <summary>
     /// Object to contain parameters used for mortgage calculation.

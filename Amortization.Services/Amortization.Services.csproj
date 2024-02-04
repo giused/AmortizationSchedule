@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Amortization.Data\Amortization.Data.csproj" />
+    <ProjectReference Include="..\Amortization.Identity\Amortization.Identity.csproj" />
+    <ProjectReference Include="..\Amortization.Services.Interfaces\Amortization.Services.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>
