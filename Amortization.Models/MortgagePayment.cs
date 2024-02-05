@@ -4,9 +4,11 @@ namespace Amortization.Models
 {
     public class MortgagePayment
     {
+        [Display(Name = "Payment Number")]
         public int PaymentNumber { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Principle Payment")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double PrinciplePayment
         {
             get
@@ -15,7 +17,8 @@ namespace Amortization.Models
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Interest Payment")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double InterestPayment
         {
             get
@@ -23,23 +26,28 @@ namespace Amortization.Models
                 return BeginningBalance * MonthlyInterestRate;
             }
         }
-        
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+
+        [Display(Name = "Beginning Balance")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double BeginningBalance { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Remaining Balance")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double RemainingBalance { get { return BeginningBalance - PrinciplePayment; } }
-        
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+
+        [Display(Name = "Total Payment")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double TotalPayment { get; set; }
 
+        [Display(Name = "Monthly Interest Rate")]
         public double MonthlyInterestRate { get; set; }
 
+        [Display(Name = "Payment Date")]
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime PaymentDate { get; set; }
 
-        
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Cumulative Interest Paid")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double CumulativeInterestPaid { get; set; }
     }
 }

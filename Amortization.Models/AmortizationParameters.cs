@@ -1,4 +1,6 @@
-﻿namespace Amortization.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Amortization.Models
 {
     /// <summary>
     /// Object to contain parameters used for mortgage calculation.
@@ -22,19 +24,23 @@
             AnnualInterestRate = annualInterestRate;
             NumberOfPayments = numberOfPayments;
         }
+
         /// <summary>
         /// Gets or sets the total loan amount
         /// </summary>
+        [Display(Name = "Total Loan Amount")]
         public double TotalLoanAmount { get; set; }
 
         /// <summary>
         /// Gets or sets the annual interest rate
         /// </summary>
+        [Display(Name = "Annual Interest Rate")]
         public double AnnualInterestRate { get; set; }
 
         /// <summary>
         /// Gets or sets the number of payments in terms of months
         /// </summary>
+        [Display(Name = "Number of Payments")]
         public int NumberOfPayments { get; set; }
 
         /// <summary>
@@ -47,5 +53,7 @@
                 return AnnualInterestRate / 12;
             }
         }
+
+        public int MortgageParameterId { get; set; }
     }
 }

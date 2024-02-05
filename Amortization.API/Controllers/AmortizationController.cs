@@ -55,6 +55,11 @@ namespace Amortization.API.Controllers
             return await AmortizationService.SaveUserAmortizationQueryAsync(userName, parameters);
         }
 
+        [HttpGet("Parameter")]
+        public async Task<AmortizationParameters> GetAmortizationParameter(int id)
+        {
+            return await AmortizationService.GetParametersAsync(id);
+        }
 
     }
 }

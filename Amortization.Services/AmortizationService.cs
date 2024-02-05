@@ -112,5 +112,11 @@ namespace Amortization.Services
             var history = await AmortizationRepository.GetUserHistoryAsync(userName);
             return history.Select(x => ModelFactory.ToModel(x)).ToList();
         }
+
+        public async Task<AmortizationParameters> GetParametersAsync(int id)
+        {
+            MortgageParameter parameters = await AmortizationRepository.GetMortgageParametersAsync(id);
+            return ModelFactory.ToModel(parameters);
+        }
     }
 }

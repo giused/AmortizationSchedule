@@ -6,7 +6,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @Html.ActionLink("Generate Amortization Schedule", "Index", "Amortization")
-    <p>Generate a schedule from a past query</p>
+    <p>View a schedule from a past query</p>
     <table class="table">
         <thead>
             <tr>
@@ -38,7 +38,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TotalLoanAmount)
                     </td>
-                    <td>@Html.ActionLink("Schedule", "Schedule", new { id=item.MortgageParameterId })</td>
+                    <td>@Html.ActionLink("Schedule", "Schedule", "Amortization", new { id=item.MortgageParameterId })</td>
                 </tr>
             }
         </tbody>

@@ -13,5 +13,7 @@ namespace Amortization.Services
         Task<int> SaveUserAmortizationQueryAsync(string userName, AmortizationParameters parameters);
 
         Task<List<AmortizationParameters>> GetUserHistoryAsync(string userName);
+        
+        Task<AmortizationParameters> GetParametersAsync(int id);
     }
 }

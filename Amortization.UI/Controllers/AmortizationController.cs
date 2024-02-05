@@ -42,7 +42,13 @@ namespace Amortization.UI.Controllers
         public async Task<IActionResult> Schedule(int id)
         {
             List<MortgagePayment> schedule = await AmortizationService.GenerateScheduleAsync(id);
-            return View(schedule);
+            AmortizationParameters parameters = await AmortizationService.GetParametersAsync(id);
+            AmortizationModel model = new AmortizationModel();
+            model.Schedule = schedule;
+            model.NumberOfPayments = parameters.NumberOfPayments;
+            model.AnnualInterestRate = parameters.AnnualInterestRate;
+            model.LoanAmount = parameters.TotalLoanAmount;
+            return View(model);
         }
     }
 }

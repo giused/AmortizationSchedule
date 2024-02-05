@@ -32,6 +32,15 @@ namespace Amortization.Services.Client
             return response;
         }
 
+        public async Task<AmortizationParameters> GetParametersAsync(int id)
+        {
+            //Parameter
+            RestRequest request = new RestRequest("api/Amortization/Parameter");
+            request.AddParameter("id", id);
+            var response = await _client.GetAsync<AmortizationParameters>(request);
+            return response;
+        }
+
         public async Task<List<AmortizationParameters>> GetUserHistoryAsync(string userName)
         {
             RestRequest request = new RestRequest("api/Amortization/GetUserHistory");

@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Amortization.Models.MortgagePayment>
-
+﻿@using Amortization.Models
+@* @model IEnumerable<Amortization.Models.MortgagePayment> *@
+@model AmortizationModel
 @{
     ViewData["Title"] = "Schedule";
 }
@@ -9,41 +10,66 @@
 <p>
     <a asp-action="Index">Create New</a>
 </p>
+<div class="row">
+    <div class="form-group col-sm-2">
+        <b>@Html.LabelFor(m => m.AnnualInterestRate)</b>
+        <div class="col-sm-12">
+            @Html.DisplayFor(model => model.AnnualInterestRate)
+        </div>
+    </div>
+    <div class="form-group col-sm-2">
+        
+        <b>@Html.LabelFor(m => m.NumberOfPayments, new { @class = "font-weight-bold" })</b>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfPayments)
+        </div>
+    </div>
+    <div class="form-group col-sm-2">
+        <b>@Html.LabelFor(m => m.LoanAmount, new { @class = "font-weight-bold" })</b>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.LoanAmount)
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentNumber)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.PaymentNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PrinciplePayment)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.BeginningBalance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InterestPayment)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.PrinciplePayment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BeginningBalance)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.InterestPayment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RemainingBalance)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.TotalPayment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalPayment)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.RemainingBalance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentDate)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.PaymentDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CumulativeInterestPaid)
+                @Html.DisplayNameForInnerType((MortgagePayment payment) => payment.CumulativeInterestPaid)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Schedule) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.PaymentNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginningBalance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PrinciplePayment)
@@ -52,13 +78,10 @@
                 @Html.DisplayFor(modelItem => item.InterestPayment)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BeginningBalance)
+                @Html.DisplayFor(modelItem => item.TotalPayment)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RemainingBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPayment)
             </td>
            
             <td>
