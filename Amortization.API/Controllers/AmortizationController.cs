@@ -29,22 +29,32 @@ namespace Amortization.API.Controllers
             AmortizationService = amortizationService;
         }
 
-        [HttpGet("GetPayment")]
-        public double Get(int termInMonths, double annualRate, double loanAmount)
+        [HttpPost("GenerateSchedule")]
+        public async Task<List<MortgagePayment>> Get(AmortizationParameters parameters)
         {
-            AmortizationParameters parameters = new AmortizationParameters();
-            parameters.AnnualInterestRate = annualRate;
-            parameters.NumberOfPayments = termInMonths;
-            parameters.PrincipalLoanAmount = loanAmount;
-            
-            return AmortizationService.CalculateLoanPayment(parameters);
+            //AmortizationParameters parameters = new AmortizationParameters(loanAmount, annualRate, termInMonths);
+            return await AmortizationService.GenerateScheduleAsync(parameters);
+        }
+
+        [HttpGet("GenerateSchedule")]
+        public async Task<List<MortgagePayment>> GetById(int mortgageParameterId)
+        {
+            return await AmortizationService.GenerateScheduleAsync(mortgageParameterId);
         }
 
         [HttpGet("GetUserHistory")]
-        public async Task<IEnumerable<MortgageParameter>> GetUserHistory()
+        public async Task<IEnumerable<AmortizationParameters>> GetUserHistory(string userName)
         {
-            string currentUserName = IdentityService.GetUserName();
-            return await AmortizationRepository.GetUserHistory(currentUserName);            
+            return await AmortizationService.GetUserHistoryAsync(IdentityService.GetUserName());
         }
+
+        [HttpPost("SaveParameters/{userName}")]
+        public async Task<int> SaveUserParameters(AmortizationParameters parameters, string userName)
+        {
+            //string userName = IdentityService.GetUserName();
+            return await AmortizationService.SaveUserAmortizationQueryAsync(userName, parameters);
+        }
+
+
     }
 }

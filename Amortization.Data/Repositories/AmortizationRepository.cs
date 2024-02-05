@@ -21,7 +21,7 @@ namespace Amortization.Data.Repositories
             DataContext = dataContext;
         }
 
-        public async Task SaveUser(User user)
+        public async Task SaveUserAsync(User user)
         {
             if (user.UserId == 0)
             {
@@ -34,22 +34,22 @@ namespace Amortization.Data.Repositories
             await DataContext.SaveChangesAsync();
         }
 
-        public async Task<User> GetUser(string username)
+        public async Task<User> GetUserAsync(string username)
         {
             var user = from u in DataContext.Users where u.UserName == username select u;
-            return user.FirstOrDefault();
+            return await user.FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MortgageParameter>> GetUserHistory(string username)
+        public async Task<IEnumerable<MortgageParameter>> GetUserHistoryAsync(string username)
         {
             var userHistory = from u in DataContext.Users
                               join m in DataContext.MortgageParameters on u.UserId equals m.User.UserId
                               where u.UserName == username
                               select m;
-            return userHistory.AsEnumerable();
+            return await userHistory.ToListAsync();
         }
 
-        public async Task<User> SaveUser(string username)
+        public async Task<User> SaveUserAsync(string username)
         {
             // need to make sure user doesn't exist first
             User newUser = new User();
@@ -59,10 +59,28 @@ namespace Amortization.Data.Repositories
             return newUser;
         }
 
-        public Task SaveMortgageParameter(MortgageParameter parameter, User user)
+        public async Task<int> SaveMortgageParameterAsync(MortgageParameter parameter, User user)
         {
             // need to check to make sure history doesn't exist for user.
-            throw new NotImplementedException();
+            var savedParameters = from p in DataContext.MortgageParameters 
+                                  where p.User == user 
+                                  select p;
+            var match = await savedParameters.FirstOrDefaultAsync(p => p.PrincipalLoanAmount == parameter.PrincipalLoanAmount && p.NumberOfPayments == parameter.NumberOfPayments && p.AnnualInterestRate == parameter.AnnualInterestRate);
+            if (match != null)
+            {
+                return match.MortgageParameterId;
+            }
+            parameter.User = user; 
+            
+            DataContext.Entry(parameter).State = EntityState.Added;
+            await DataContext.SaveChangesAsync();
+            return parameter.MortgageParameterId;
+        }
+
+        public async Task<MortgageParameter> GetMortgageParametersAsync(int mortgageParameterId)
+        {
+            var parameter = from p in DataContext.MortgageParameters where p.MortgageParameterId == mortgageParameterId select p;
+            return await parameter.FirstOrDefaultAsync();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Amortization.Identity;
 using Amortization.Services;
 using Amortization.Services.Client;
 using RestSharp;
@@ -14,11 +15,11 @@ namespace Amortization.UI
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
             var apiUrl = builder.Configuration["RestEndpoint"];
+            Uri baseUrl = new Uri(apiUrl);
 
-
-            builder.Services.AddSingleton(new RestClient(apiUrl));
+            builder.Services.AddSingleton(new RestClient(new RestClientOptions { BaseUrl = baseUrl, UseDefaultCredentials = true }));
             builder.Services.AddScoped<IAmortizationService, AmortizationService>();
-
+            builder.Services.AddScoped<IIdentityService, WindowsIdentityService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

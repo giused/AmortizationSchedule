@@ -6,12 +6,15 @@ namespace Amortization.Data.Repositories
     {
         ApplicationDbContext DataContext { get; set; }
 
-        Task<User> GetUser(string username);
-        Task<IEnumerable<MortgageParameter>> GetUserHistory(string username);
-        Task SaveUser(User user);
+        Task<User> GetUserAsync(string username);
+        Task<IEnumerable<MortgageParameter>> GetUserHistoryAsync(string username);
 
-        Task<User> SaveUser(string username);
+        Task<MortgageParameter> GetMortgageParametersAsync(int mortgageParameterId);
 
-        Task SaveMortgageParameter(MortgageParameter parameter, User user);
+        Task SaveUserAsync(User user);
+
+        Task<User> SaveUserAsync(string username);
+
+        Task<int> SaveMortgageParameterAsync(MortgageParameter parameter, User user);
     }
 }

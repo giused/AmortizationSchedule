@@ -9,15 +9,18 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Amortization.Identity\Amortization.Identity.csproj" />
     <ProjectReference Include="..\Amortization.Models\Amortization.Models.csproj" />
     <ProjectReference Include="..\Amortization.Services.Client\Amortization.Services.Client.csproj" />
     <ProjectReference Include="..\Amortization.Services.Interfaces\Amortization.Services.Interfaces.csproj" />

@@ -1,4 +1,6 @@
-﻿using Amortization.Services;
+﻿using Amortization.Identity;
+using Amortization.Models;
+using Amortization.Services;
 using Amortization.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +10,12 @@ namespace Amortization.UI.Controllers
     {
         public IAmortizationService AmortizationService { get; set; }
 
-        public AmortizationController(IAmortizationService amortizationService)
+        public IIdentityService IdentityService { get; set; }
+
+        public AmortizationController(IAmortizationService amortizationService, IIdentityService identityService)
         {
             AmortizationService = amortizationService;
+            IdentityService = identityService;
         }
 
         [HttpGet]
@@ -20,13 +25,24 @@ namespace Amortization.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(AmortizationModel model)
+        public async Task<IActionResult> Index(AmortizationModel model)
         { 
             if (ModelState.IsValid)
             {
-                
+                AmortizationParameters parameters = new AmortizationParameters(model.LoanAmount, model.AnnualInterestRate, model.NumberOfPayments);
+
+                // save parameters, then pass id of parameters
+                int id = await AmortizationService.SaveUserAmortizationQueryAsync(IdentityService.GetUserName(), parameters);
+                return RedirectToAction("Schedule", "Amortization", new { id = id });
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Schedule(int id)
+        {
+            List<MortgagePayment> schedule = await AmortizationService.GenerateScheduleAsync(id);
+            return View(schedule);
         }
     }
 }

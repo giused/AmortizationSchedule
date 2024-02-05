@@ -6,7 +6,12 @@ namespace Amortization.Services
     {
         double CalculateLoanPayment(AmortizationParameters parameters);
 
-        List<MortgagePayment> GenerateSchedule(AmortizationParameters parameters);
-        
+        Task<List<MortgagePayment>> GenerateScheduleAsync(AmortizationParameters parameters);
+
+        Task<List<MortgagePayment>> GenerateScheduleAsync(int mortgageParameterId);
+
+        Task<int> SaveUserAmortizationQueryAsync(string userName, AmortizationParameters parameters);
+
+        Task<List<AmortizationParameters>> GetUserHistoryAsync(string userName);
     }
 }

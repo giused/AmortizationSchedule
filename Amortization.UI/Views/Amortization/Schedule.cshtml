@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Amortization.Models.MortgagePayment>
+
+@{
+    ViewData["Title"] = "Schedule";
+}
+
+<h1>Schedule</h1>
+
+<p>
+    <a asp-action="Index">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrinciplePayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginningBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemainingBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CumulativeInterestPaid)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrinciplePayment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestPayment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginningBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemainingBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPayment)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CumulativeInterestPaid)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

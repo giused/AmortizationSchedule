@@ -1,9 +1,46 @@
-﻿@{
+﻿@using Amortization.Models
+@{
     ViewData["Title"] = "Home Page";
 }
-
+@model IEnumerable<AmortizationParameters>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @Html.ActionLink("Generate Amortization Schedule", "Index", "Amortization")
     <p>Generate a schedule from a past query</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.AnnualInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.NumberOfPayments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalLoanAmount)
+                </th>
+                <th>
+                    
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnnualInterestRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfPayments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalLoanAmount)
+                    </td>
+                    <td>@Html.ActionLink("Schedule", "Schedule", new { id=item.MortgageParameterId })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

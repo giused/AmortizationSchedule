@@ -29,15 +29,36 @@ namespace Amortization.Data.Repositories.Tests
         {
             User user = new User();
             user.UserName = "Test";
-            await AmortizationRepository.SaveUser(user);
+            await AmortizationRepository.SaveUserAsync(user);
             Assert.IsTrue(user.UserId > 0);
         }
 
         [TestMethod()]
         public async Task GetUserTest()
         {
-            var user = await AmortizationRepository.GetUser("test");
+            var user = await AmortizationRepository.GetUserAsync("test");
             Assert.IsNotNull(user);
+        }
+
+        [TestMethod()]
+        public void SaveMortgageParameterAsyncTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public async Task GetUserHistoryAsyncTest()
+        {
+            var list = await AmortizationRepository.GetUserHistoryAsync("test");
+            Assert.IsNotNull(list);
+        }
+
+        [TestMethod()]
+        public async Task GetUserHistoryAsyncTest2()
+        {
+            var list = await AmortizationRepository.GetUserHistoryAsync("GINSPIRON\\giuse");
+            Assert.IsNotNull(list);
+            Assert.IsTrue(list.Count() > 0);
         }
     }
 }

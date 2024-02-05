@@ -31,7 +31,7 @@ namespace Amortization.Services.Tests
         public void CalculateLoanPaymentTest()
         {
             AmortizationParameters parameters = new AmortizationParameters();
-            parameters.PrincipalLoanAmount = 5000;
+            parameters.TotalLoanAmount = 5000;
             parameters.NumberOfPayments = 12;
             parameters.AnnualInterestRate = 4;
             double payment = Math.Round(service.CalculateLoanPayment(parameters), 2);
@@ -42,7 +42,7 @@ namespace Amortization.Services.Tests
         public void CalculateLoanPaymentTest2()
         {
             AmortizationParameters parameters = new AmortizationParameters();
-            parameters.PrincipalLoanAmount = 5000;
+            parameters.TotalLoanAmount = 5000;
             parameters.NumberOfPayments = 60;
             parameters.AnnualInterestRate = 5.5;
             double payment = Math.Round(service.CalculateLoanPayment(parameters), 2);
@@ -51,15 +51,15 @@ namespace Amortization.Services.Tests
 
 
         [TestMethod()]
-        public void GenerateScheduleTest()
+        public async Task GenerateScheduleTest()
         {
             AmortizationParameters parameters = new AmortizationParameters();
-            parameters.PrincipalLoanAmount = 5000;
+            parameters.TotalLoanAmount = 5000;
             parameters.NumberOfPayments = 60;
             parameters.AnnualInterestRate = 5.5;
 
-            var schedule = service.GenerateSchedule(parameters);
-            Assert.AreEqual(Math.Round(schedule[0].BeginningBalance, 2), parameters.PrincipalLoanAmount);
+            var schedule = await service.GenerateScheduleAsync(parameters);
+            Assert.AreEqual(Math.Round(schedule[0].BeginningBalance, 2), parameters.TotalLoanAmount);
             Assert.AreEqual(schedule[0].PaymentNumber, 1);
             Assert.AreEqual(Math.Round(schedule[0].TotalPayment, 2), 95.51);
             Assert.AreEqual(Math.Round(schedule[0].RemainingBalance, 2), 4927.41);
@@ -71,14 +71,14 @@ namespace Amortization.Services.Tests
         }
 
         [TestMethod()]
-        public void GenerateScheduleTest2()
+        public async Task GenerateScheduleTest2()
         {
             AmortizationParameters parameters = new AmortizationParameters();
-            parameters.PrincipalLoanAmount = 12000;
+            parameters.TotalLoanAmount = 12000;
             parameters.NumberOfPayments = 72;
             parameters.AnnualInterestRate = 2.95;
 
-            var schedule = service.GenerateSchedule(parameters);
+            var schedule = await service.GenerateScheduleAsync(parameters);
             Assert.AreEqual(181.61, Math.Round(schedule[71].BeginningBalance, 2));
             Assert.AreEqual(72, schedule[71].PaymentNumber);
             Assert.AreEqual(182.06, Math.Round(schedule[71].TotalPayment, 2));

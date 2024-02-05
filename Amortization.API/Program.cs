@@ -1,6 +1,7 @@
 using Amortization.Data;
 using Amortization.Data.Repositories;
 using Amortization.Identity;
+using Amortization.Services;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +21,9 @@ namespace Amortization.API
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IIdentityService, WindowsIdentityService>();
             builder.Services.AddScoped<IAmortizationRepository, AmortizationRepository>();
-
+            builder.Services.AddScoped<IAmortizationService, AmortizationService>();
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

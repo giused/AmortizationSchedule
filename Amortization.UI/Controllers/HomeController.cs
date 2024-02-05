@@ -1,21 +1,29 @@
+using Amortization.Identity;
+using Amortization.Services;
 using Amortization.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace Amortization.UI.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        IAmortizationService AmortizationService { get; set; }
+        IIdentityService IdentityService { get; set; }
+        
+        public HomeController(IIdentityService identityService, IAmortizationService amortizationService, ILogger<HomeController> logger)
         {
             _logger = logger;
+            AmortizationService = amortizationService;
+            IdentityService = identityService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userHistory = await AmortizationService.GetUserHistoryAsync(IdentityService.GetUserName());
+            return View(userHistory);
         }
 
         public IActionResult Privacy()

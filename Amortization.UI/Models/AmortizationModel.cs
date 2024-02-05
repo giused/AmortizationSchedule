@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Amortization.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Amortization.UI.Models
@@ -15,6 +16,7 @@ namespace Amortization.UI.Models
         [DisplayName("Total Loan Amount")]
         public double LoanAmount { get; set; }
 
-        public List<MortgagePaymentModel> Schedule { get; set; }
+        public List<MortgagePayment>? Schedule {  get; set; }
+
     }
 }
