@@ -1,5 +1,7 @@
 ﻿using Amortization.Models;
 using RestSharp;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Amortization.Services.Client
 {
@@ -28,8 +30,14 @@ namespace Amortization.Services.Client
         {
             RestRequest request = new RestRequest("api/Amortization/GenerateSchedule");
             request.AddParameter("mortgageParameterId", mortgageParameterId);
-            var response = await _client.GetAsync<List<MortgagePayment>>(request);
-            return response;
+
+            var response = await _client.GetAsync(request);
+            if (response.IsSuccessful)
+            {
+                var result = JsonSerializer.Deserialize<List<MortgagePayment>>(response.Content);
+                return result;
+            }
+            return null;
         }
 
         public async Task<AmortizationParameters> GetParametersAsync(int id)
@@ -53,7 +61,6 @@ namespace Amortization.Services.Client
         public async Task<int> SaveUserAmortizationQueryAsync(string userName, AmortizationParameters parameters)
         {
             RestRequest request = new RestRequest("api/Amortization/SaveParameters/userName={userName}", Method.Post);
-            //request.AddHeader("content-type", "application/json");
             request.AddQueryParameter("userName", userName);
             request.AddJsonBody(parameters);
             return await _client.PostAsync<int>(request);
