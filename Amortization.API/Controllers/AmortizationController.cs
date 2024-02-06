@@ -27,10 +27,14 @@ namespace Amortization.API.Controllers
             AmortizationService = amortizationService;
         }
 
+        /// <summary>
+        /// Generates an amortization schedule based on the parameters provided.
+        /// </summary>
+        /// <param name="parameters">Amortization parameters</param>
+        /// <returns>List of mortgage payments</returns>
         [HttpPost("GenerateSchedule")]
         public async Task<IActionResult> Get(AmortizationParameters parameters)
         {
-            //Task<List<MortgagePayment>>
             try
             {
                 var result = await AmortizationService.GenerateScheduleAsync(parameters);
@@ -43,10 +47,14 @@ namespace Amortization.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Generates an amortization schedule based on the mortgage parameter retrieved by the id
+        /// </summary>
+        /// <param name="mortgageParameterId">Mortgage parameter Id</param>
+        /// <returns>List of mortgage payments</returns>
         [HttpGet("GenerateSchedule")]
         public async Task<IActionResult> GetById(int mortgageParameterId)
         {
-            //Task<List<MortgagePayment>>
             try
             {
                 var result = await AmortizationService.GenerateScheduleAsync(mortgageParameterId);
@@ -59,10 +67,14 @@ namespace Amortization.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the users amortization schedule history
+        /// </summary>
+        /// <param name="userName">User to retrieve histrory for</param>
+        /// <returns>List of amortization parameters.</returns>
         [HttpGet("GetUserHistory")]
         public async Task<IActionResult> GetUserHistory(string userName)
         {
-            // IEnumerable<AmortizationParameters>
             try
             {
                 var result = await AmortizationService.GetUserHistoryAsync(IdentityService.GetUserName());
@@ -84,8 +96,6 @@ namespace Amortization.API.Controllers
         [HttpPost("SaveParameters/{userName}")]
         public async Task<IActionResult> SaveUserParameters(AmortizationParameters parameters, string userName)
         {
-            //string userName = IdentityService.GetUserName();
-
             try
             {
                 var result = await AmortizationService.SaveUserAmortizationQueryAsync(userName, parameters);

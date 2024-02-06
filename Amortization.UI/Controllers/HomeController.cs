@@ -3,7 +3,6 @@ using Amortization.Services;
 using Amortization.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Security.Principal;
 
 namespace Amortization.UI.Controllers
 {
