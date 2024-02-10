@@ -27,9 +27,8 @@ namespace Amortization.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 
-            builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-                .AddNegotiate();
             builder.Services.AddAuthorization(options =>
             {
                 // By default, all incoming requests will be authorized according to the default policy.

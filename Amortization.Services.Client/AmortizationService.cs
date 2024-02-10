@@ -60,8 +60,8 @@ namespace Amortization.Services.Client
 
         public async Task<int> SaveUserAmortizationQueryAsync(string userName, AmortizationParameters parameters)
         {
-            RestRequest request = new RestRequest("api/Amortization/SaveParameters/userName={userName}", Method.Post);
-            request.AddQueryParameter("userName", userName);
+            RestRequest request = new RestRequest("api/Amortization/{userName}/Parameters/", Method.Post);
+            request.AddUrlSegment("userName", userName);
             request.AddJsonBody(parameters);
             return await _client.PostAsync<int>(request);
         }

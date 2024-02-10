@@ -93,11 +93,11 @@ namespace Amortization.API.Controllers
         /// <param name="parameters">Parameters to save</param>
         /// <param name="userName">User name</param>
         /// <returns>Id of mortgage parameters</returns>
-        [HttpPost("SaveParameters/{userName}")]
+        [HttpPost("{userName}/Parameters")]
         public async Task<IActionResult> SaveUserParameters(AmortizationParameters parameters, string userName)
         {
             try
-            {
+            { 
                 var result = await AmortizationService.SaveUserAmortizationQueryAsync(userName, parameters);
                 return Ok(result);
             }
